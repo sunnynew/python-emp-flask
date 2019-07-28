@@ -1,14 +1,14 @@
 [Unit]
-Description=Gunicorn instance to serve {{ app_name }}
+Description=Gunicorn instance to serve python-emp-flask
 After=network.target
 
 [Service]
 User=ubuntu
 Group=www-data
-WorkingDirectory=/home/ubuntu/flask-ansible-example
-Environment="PATH=/home/ubuntu/flask-ansible-example/env/bin"
-#ExecStart=/home/ubuntu/flask-ansible-example/env/bin/gunicorn --workers 3 --bind unix:flask-ansible-example.sock -m 007 wsgi:app
-ExecStart=/home/ubuntu/flask-ansible-example/env/bin/gunicorn --workers 3 --bind 0.0.0.0:5000 -m 007 wsgi:app
+WorkingDirectory=/home/ubuntu/python-emp-flask
+Environment="PATH=/home/ubuntu/python-emp-flask/env/bin"
+ExecStart=/home/ubuntu/python-emp-flask/env/bin/gunicorn --workers 2 --bind unix:python-emp-flask.sock -m 007 wsgi:app
+#ExecStart=/home/ubuntu/flask-ansible-example/env/bin/gunicorn --workers 2 --bind 0.0.0.0:5000 -m 007 wsgi:app
 
 [Install]
 WantedBy=multi-user.target
