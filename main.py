@@ -15,6 +15,20 @@ def requires_auth(f):
         return make_response('Could not verify your login!', 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
     return decorated 
 
+#Show available endpoints#
+@app.route("/")
+def index():
+    return """<xmp>
+Welcome! - Below are endpoints you can access.
+
+/add - method=POST : Add new employee details.
+/emps - method=GET : List all employees details.
+/emp/<id> - method=GET : Get employee record based on employeeCode.
+/update - method=PUT : Update employee records.
+/delete/<id> - method=DELETE : Delete employee record based on employeeCode.
+/health - method=GET : Check app health.
+</xmp>"""
+
 #Add employees records#	
 @app.route('/add', methods=['POST'])
 @requires_auth
@@ -57,7 +71,8 @@ def emps():
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		cursor.execute("SELECT userId Id, jobTitleName title, firstName fName, lastName lName, preferredFullName fullName, employeeCode eCode, region reg, phoneNumber ph, emailAddress email FROM tbl_emp")
+		cursor.execute("SELECT userId userId, jobTitleName jobTitleName, firstName firstName, lastName firstName, preferredFullName preferredFullName, employeeCode employeeCode, region region, phoneNumber phoneNumber, emailAddress emailAddress FROM tbl_emp")
+		#cursor.execute("SELECT userId Id, jobTitleName title, firstName fName, lastName lName, preferredFullName fullName, employeeCode eCode, region reg, phoneNumber ph, emailAddress email FROM tbl_emp")
 		rows = cursor.fetchall()
 		resp = jsonify(rows)
 		resp.status_code = 200
@@ -138,7 +153,7 @@ def delete_emp(id):
 
 #health page to verify app from Ansible playbook#
 @app.route("/health")
-def index():
+def health():
     return 'running'
 		
 @app.errorhandler(404)
