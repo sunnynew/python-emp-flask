@@ -14,7 +14,8 @@ def requires_auth(f):
 
         return make_response('Could not verify your login!', 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
     return decorated 
-	
+
+#Add employees records#	
 @app.route('/add', methods=['POST'])
 @requires_auth
 def add_emp():
@@ -49,6 +50,7 @@ def add_emp():
 		cursor.close() 
 		conn.close()
 		
+#Get all employees records#
 @app.route('/emps')
 @requires_auth
 def emps():
@@ -66,6 +68,7 @@ def emps():
 		cursor.close() 
 		conn.close()
 		
+#Get employee record based on employeeCode#
 @app.route('/emp/<id>')
 def emp(id):
 	try:
@@ -82,6 +85,7 @@ def emp(id):
 		cursor.close() 
 		conn.close()
 
+#Update employee records#
 @app.route('/update', methods=['PUT'])
 def update_emp():
 	try:
@@ -115,6 +119,7 @@ def update_emp():
 		cursor.close() 
 		conn.close()
 		
+#Delete employee records#
 @app.route('/delete/<id>', methods=['DELETE'])
 def delete_emp(id):
 	try:
@@ -130,6 +135,11 @@ def delete_emp(id):
 	finally:
 		cursor.close() 
 		conn.close()
+
+#health page to verify app from Ansible playbook#
+@app.route("/health")
+def index():
+    return 'running'
 		
 @app.errorhandler(404)
 def not_found(error=None):
