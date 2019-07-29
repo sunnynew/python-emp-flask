@@ -72,7 +72,6 @@ def emps():
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
 		cursor.execute("SELECT userId userId, jobTitleName jobTitleName, firstName firstName, lastName firstName, preferredFullName preferredFullName, employeeCode employeeCode, region region, phoneNumber phoneNumber, emailAddress emailAddress FROM tbl_emp")
-		#cursor.execute("SELECT userId Id, jobTitleName title, firstName fName, lastName lName, preferredFullName fullName, employeeCode eCode, region reg, phoneNumber ph, emailAddress email FROM tbl_emp")
 		rows = cursor.fetchall()
 		resp = jsonify(rows)
 		resp.status_code = 200
@@ -89,7 +88,7 @@ def emp(id):
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		cursor.execute("SELECT userId Id, jobTitleName title, firstName fName, lastName lName, preferredFullName fullName, employeeCode eCode, region reg, phoneNumber ph, emailAddress email FROM tbl_emp WHERE employeeCode=%s", id)
+		cursor.execute("SELECT userId userId, jobTitleName jobTitleName, firstName firstName, lastName lastName, preferredFullName preferredFullName, employeeCode employeeCode, region region, phoneNumber phoneNumber, emailAddress emailAddress FROM tbl_emp WHERE employeeCode=%s", id)
 		row = cursor.fetchone()
 		resp = jsonify(row)
 		resp.status_code = 200
