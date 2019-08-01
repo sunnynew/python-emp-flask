@@ -7,6 +7,7 @@ User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/python-emp-flask
 Environment="PATH=/home/ubuntu/python-emp-flask/env/bin"
+EnvironmentFile=/home/ubuntu/python-emp-flask/.env_vars
 ExecStart=/home/ubuntu/python-emp-flask/env/bin/gunicorn --workers 2 --bind unix:python-emp-flask.sock -m 007 wsgi:app
 #ExecStart=/home/ubuntu/flask-ansible-example/env/bin/gunicorn --workers 2 --bind 0.0.0.0:5000 -m 007 wsgi:app
 
